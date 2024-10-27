@@ -37,3 +37,28 @@ export const Register: RequestHandler = async (req: Request, res: Response): Pro
     }
   }
 };
+
+export const SignIn: RequestHandler = async (req: Request, res: Response): Promise<void> => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.motDePasse);
+    if (!isPasswordValid) {
+      res.status(401).json({ error: 'Incorrect password' });
+      return;
+    }
+
+    const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET || 'your_jwt_secret', { expiresIn: '1h' });
+
+    res.status(200).json({ message: 'Sign in successful', token });
+  } catch (error: any) {
+    console.error('Error signing in:', error);
+    res.status(500).json({ error: 'Internal Server Error', details: error.message });
+  }
+};
