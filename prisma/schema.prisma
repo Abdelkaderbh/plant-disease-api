@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
   id           Int      @id @default(autoincrement())
   nom          String
@@ -16,6 +15,7 @@ model User {
   role         String
   user         Client?
   admin        Admin?
+  plants       Plant[]  // Relation to Plant model
 }
 
 model Client {
@@ -40,6 +40,8 @@ model Post {
   userId        Int
   user          Client        @relation(fields: [userId], references: [id])
   commentaires  Commentaire[]
+  plantId       Int
+  plant         Plant         @relation(fields: [plantId], references: [id_plant]) // Relation to Plant model
 }
 
 model Commentaire {
@@ -48,4 +50,16 @@ model Commentaire {
   date_creation DateTime @default(now())
   postId        Int
   post          Post     @relation(fields: [postId], references: [id_post])
+}
+
+model Plant {
+  id_plant      Int      @id @default(autoincrement())
+  name          String
+  species       String
+  description   String
+  health_status String
+  date_creation DateTime @default(now())
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id]) // Relation to User model
+  posts         Post[]   // Relation to Post model
 }
