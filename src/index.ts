@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import prisma from './utils/db';
 import testDatabaseConnection from './utils/dbconn';
-import Auth from './routes/Auth'
+import Auth from './routes/authRoutes'
 
 dotenv.config();
 
