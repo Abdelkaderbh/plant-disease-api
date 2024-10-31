@@ -54,7 +54,7 @@ export const SignIn: RequestHandler = async (req: Request, res: Response): Promi
       return;
     }
 
-    const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET || 'your_jwt_secret', { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET!, { expiresIn: '1h' });
 
     res.status(200).json({ message: 'Sign in successful', token });
   } catch (error: any) {

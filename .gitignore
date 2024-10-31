@@ -28,7 +28,7 @@ prisma/.env
 
 # Docker
 docker-compose.override.yml
-docker-compose.yml
+*/docker-compose.yml
 
 # Debugger configurations
 .vscode/

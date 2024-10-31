@@ -14,8 +14,6 @@ model User {
   motDePasse String
   role       String  @default("Client")
   posts      Post[]
-  user       Client?
-  admin      Admin?
   plants     Plant[]
 }
 
@@ -43,8 +41,7 @@ model Commentaire {
 
 model Plant {
   id_plant      Int      @id @default(autoincrement())
-  name          String
-  species       String
+  plant_name          String
   description   String
   health_status String
   date_creation DateTime @default(now())
