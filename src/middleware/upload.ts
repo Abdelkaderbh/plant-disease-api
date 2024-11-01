@@ -1,4 +1,3 @@
-// src/middleware/uploadMiddleware.ts
 import multer from "multer";
 import { Request, Response, NextFunction } from "express";
 
