@@ -1,13 +1,25 @@
-import express from 'express';
-import PlantController, { upload } from '../controllers/PlantController';
-import { authenticateToken } from '../middleware/authMiddleware';
+import express from "express";
+import PlantController from "../controllers/PlantController";
+import { authenticateToken } from "../middleware/authMiddleware";
+import { uploadFile } from "../middleware/upload";
 
 const router = express.Router();
 
-router.post('/', authenticateToken, upload.single('file'), PlantController.createPlant);
-router.get('/', authenticateToken, PlantController.getAllPlants);
-router.get('/:id_plant', authenticateToken, PlantController.getPlantById);
-router.put('/:id_plant', authenticateToken, PlantController.updatePlant);
-router.delete('/:id_plant', authenticateToken, PlantController.deletePlant);
+router.post(
+  "/predict",
+  authenticateToken,
+  uploadFile,
+  PlantController.predictPlant
+);
+router.post("/", authenticateToken, uploadFile, PlantController.createPlant);
+router.get("/", authenticateToken, PlantController.getAllPlants);
+router.get("/:id_plant", authenticateToken, PlantController.getPlantById);
+router.put(
+  "/:id_plant",
+  authenticateToken,
+  uploadFile,
+  PlantController.updatePlant
+);
+router.delete("/:id_plant", authenticateToken, PlantController.deletePlant);
 
 export default router;

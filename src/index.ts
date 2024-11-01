@@ -10,10 +10,12 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+const cors = require("cors");
 
+app.use(cors({ origin: process.env.CORS_ORIGIN }));
 app.use(express.json());
 
-app.use("/api", Auth);
+app.use("/api/auth", Auth);
 app.use("/api/plants", Plant);
 
 async function startServer() {
