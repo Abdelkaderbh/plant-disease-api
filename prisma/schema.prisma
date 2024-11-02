@@ -41,11 +41,12 @@ model Commentaire {
 
 model Plant {
   id_plant      Int      @id @default(autoincrement())
-  plant_name          String
+  plant_name    String
   description   String
   health_status String
   date_creation DateTime @default(now())
   userId        Int
   user          User     @relation(fields: [userId], references: [id]) // Relation to User model
   posts         Post[]   // Relation to Post model
+  plant_image   Bytes?   // Add this field to store the actual image as binary data
 }

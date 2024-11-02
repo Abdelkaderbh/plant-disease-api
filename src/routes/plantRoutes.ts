@@ -14,6 +14,7 @@ router.post(
 router.post("/", authenticateToken, uploadFile, PlantController.createPlant);
 router.get("/", authenticateToken, PlantController.getAllPlants);
 router.get("/:id_plant", authenticateToken, PlantController.getPlantById);
+router.get("/plants/:id_plant/image", PlantController.getPlantImage);
 router.put(
   "/:id_plant",
   authenticateToken,
