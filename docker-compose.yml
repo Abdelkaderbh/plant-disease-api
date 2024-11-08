@@ -1,9 +1,0 @@
-services:
-  postgres:
-    image: 'postgres:latest'
-    container_name: plants-db
-    environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USER=postgres
-    ports:
-      - 127.0.0.1:5432:5432

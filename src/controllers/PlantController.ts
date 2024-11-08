@@ -38,7 +38,10 @@ class PlantController {
       const { plant_name, health_status, confidence, message } = flaskResponse.data;
 
       // Format confidence to 2 decimal places
-      const formattedConfidence = parseFloat(confidence).toFixed(2);
+      //const formattedConfidence = parseFloat(confidence).toFixed(2);
+
+      // make the confidence score a percentage
+      const formattedConfidence = `${(confidence * 100).toFixed(2)}%`;
 
       // Return prediction data without saving it to the database
       res.json({
