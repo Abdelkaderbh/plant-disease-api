@@ -14,7 +14,11 @@ router.post(
 router.post("/", authenticateToken, uploadFile, PlantController.createPlant);
 router.get("/", authenticateToken, PlantController.getAllPlants);
 router.get("/:id_plant", authenticateToken, PlantController.getPlantById);
-router.get("/plants/:id_plant/image", PlantController.getPlantImage);
+router.get(
+  "/:id_plant/image",
+  authenticateToken,
+  PlantController.getPlantImageOriginal
+);
 router.put(
   "/:id_plant",
   authenticateToken,
@@ -22,5 +26,17 @@ router.put(
   PlantController.updatePlant
 );
 router.delete("/:id_plant", authenticateToken, PlantController.deletePlant);
+// Route for getting the heatmap of a plant's initial image
+router.get(
+  "/:id_plant/heatmapdb",
+  authenticateToken,
+  PlantController.getPlantHeatmap
+);
+router.post(
+  "/heatmap",
+  authenticateToken,
+  uploadFile,
+  PlantController.generateHeatmap
+);
 
 export default router;

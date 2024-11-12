@@ -15,6 +15,7 @@ model User {
   role       String  @default("Client")
   posts      Post[]
   plants     Plant[]
+  versions   Version[]
 }
 
 
@@ -48,5 +49,17 @@ model Plant {
   userId        Int
   user          User     @relation(fields: [userId], references: [id]) // Relation to User model
   posts         Post[]   // Relation to Post model
+  versions      Version[] // Relation to Version model
   plant_image   Bytes?   // Add this field to store the actual image as binary data
+}
+
+model Version {
+  id_version            Int       @id @default(autoincrement())
+  plantId               Int       // Foreign key to Plant model
+  date_created          DateTime  @default(now())
+  updated_health_status String    // Updated health status of the plant
+  updated_image         Bytes?    // New image to track progress
+  userId                Int       // Foreign key to User model
+  plant                 Plant     @relation(fields: [plantId], references: [id_plant]) // Relation to Plant model
+  user                  User      @relation(fields: [userId], references: [id])        // Relation to User model
 }
