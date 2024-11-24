@@ -42,7 +42,7 @@ class VersionController {
       formData.append("file", resizedImageBuffer, file.originalname);
 
       const flaskResponse = await axios.post(
-        `${process.env.FLASK_API_URL}/gradcam`,
+        `${process.env.FLASK_API_URL}`,
         formData,
         {
           headers: {

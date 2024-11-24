@@ -7,32 +7,22 @@ const router = Router();
 
 router.use(authenticateToken);
 
-router.post(
-  "/plants/:plantId/versions",
-  uploadFile,
-  VersionController.createVersion
-);
+router.post("/:plantId/versions", uploadFile, VersionController.createVersion);
 
-router.get("/plants/:plantId/versions", VersionController.getAllVersions);
+router.get("/:plantId/versions", VersionController.getAllVersions);
 
-router.get(
-  "/plants/:plantId/versions/:versionId",
-  VersionController.getVersionById
-);
+router.get(":plantId/versions/:versionId", VersionController.getVersionById);
 
 router.put(
-  "/plants/:plantId/versions/:versionId",
+  ":plantId/versions/:versionId",
   uploadFile,
   VersionController.updateVersion
 );
 
-router.delete(
-  "/plants/:plantId/versions/:versionId",
-  VersionController.deleteVersion
-);
+router.delete(":plantId/versions/:versionId", VersionController.deleteVersion);
 
 router.get(
-  "/plants/:plantId/versions/:versionId/heatmap",
+  ":plantId/versions/:versionId/heatmap",
   VersionController.getHeatmap
 );
 

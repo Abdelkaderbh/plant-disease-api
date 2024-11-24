@@ -5,6 +5,7 @@ import testDatabaseConnection from "./utils/dbconn";
 import Auth from "./routes/authRoutes";
 import Post from "./routes/postRoutes";
 import Plant from "./routes/plantRoutes";
+import Versions from "./routes/versionRoutes";
 
 dotenv.config();
 
@@ -17,6 +18,8 @@ app.use(express.json());
 
 app.use("/api/auth", Auth);
 app.use("/api/plants", Plant);
+app.use("/api/posts", Post);
+app.use("/api/plants", Versions);
 
 async function startServer() {
   await testDatabaseConnection().then(() => {
