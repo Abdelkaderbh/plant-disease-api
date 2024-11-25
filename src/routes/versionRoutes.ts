@@ -11,7 +11,7 @@ router.post("/:plantId/versions", uploadFile, VersionController.createVersion);
 
 router.get("/:plantId/versions", VersionController.getAllVersions);
 
-router.get(":plantId/versions/:versionId", VersionController.getVersionById);
+router.get("/:plantId/versions/:versionId", VersionController.getVersionById);
 
 router.put(
   ":plantId/versions/:versionId",
@@ -19,10 +19,10 @@ router.put(
   VersionController.updateVersion
 );
 
-router.delete(":plantId/versions/:versionId", VersionController.deleteVersion);
+router.delete("/:plantId/versions/:versionId", VersionController.deleteVersion);
 
 router.get(
-  ":plantId/versions/:versionId/heatmap",
+  "/:plantId/versions/:versionId/heatmap",
   VersionController.getHeatmap
 );
 

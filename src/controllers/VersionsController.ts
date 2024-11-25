@@ -187,12 +187,12 @@ class VersionController {
     }
   };
 
-  // Delete a specific version
   deleteVersion = async (req: CustomRequest, res: Response): Promise<void> => {
     const { plantId, versionId } = req.params;
     const userId = req.user?.userId;
 
     try {
+      // Validate plant ownership
       const plant = await prisma.plant.findUnique({
         where: { id_plant: parseInt(plantId) },
       });
@@ -202,15 +202,29 @@ class VersionController {
         return;
       }
 
-      await prisma.version.delete({
-        where: { id_version: parseInt(versionId) },
+      // Validate version association and delete
+      const deleteResult = await prisma.version.deleteMany({
+        where: {
+          id_version: parseInt(versionId),
+          plantId: parseInt(plantId),
+        },
       });
+
+      if (deleteResult.count === 0) {
+        res.status(404).json({ error: "Version not found for this plant" });
+        return;
+      }
 
       res.status(200).json({ message: "Version deleted successfully" });
     } catch (error: any) {
-      res
-        .status(500)
-        .json({ error: "Failed to delete version", details: error.message });
+      if (error.code === "P2025") {
+        // Prisma-specific error for record not found
+        res.status(404).json({ error: "Version not found or already deleted" });
+      } else {
+        res
+          .status(500)
+          .json({ error: "Failed to delete version", details: error.message });
+      }
     }
   };
 
