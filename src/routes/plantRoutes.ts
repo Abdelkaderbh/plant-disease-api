@@ -39,4 +39,6 @@ router.post(
   PlantController.generateHeatmap
 );
 
+router.get("/",authenticateToken,PlantController.getManyPlants);
+
 export default router;

@@ -296,6 +296,8 @@ class PlantController {
     }
   };
 
+
+
   // Request heatmap from the Flask API for a specific plant's initial image
   getPlantHeatmap = async (
     req: CustomRequest,
@@ -427,6 +429,31 @@ class PlantController {
         .json({ error: "Failed to generate heatmap", details: error.message });
     }
   };
+
+  getManyPlants = async (req: CustomRequest, res: Response): Promise<void> => {
+    try {
+      const userId = req.user?.userId; // Assuming you're getting userId from the request
+      let plants;
+  
+      if (userId) {
+        // If userId is provided, filter by userId
+        plants = await prisma.plant.findMany({
+          where: { userId }, // Adjust the field name if it's different
+        });
+      } else {
+        // Otherwise, fetch all plants
+        plants = await prisma.plant.findMany();
+      }
+  
+      res.json(plants);
+    } catch (error: any) {
+      res.status(500).json({ error: "Failed to fetch plants", details: error.message });
+    }
+  };
+  
 }
+
+
+
 
 export default new PlantController();
